@@ -1,0 +1,87 @@
+html, body {
+            background-image:url("../img/bg.jpg");
+            background-color: #fff;
+            color: #636b6f;
+            font-family: 'Arial', sans-serif;
+            font-weight: 100;
+            height: 100vh;
+            margin: 0;
+        }
+        #omot {
+            margin:0 auto;
+            padding:100px;
+            width:100%
+        }
+        #left{
+            float:left;
+            width:20%;
+            max-width:100%
+        }
+        #right{
+            float:right;
+            width:80%;
+            max-width:100%;
+        }
+        .cleaner{
+            clear:both
+        }
+        ul li {
+            list-style-type:none;
+            font-size:20px
+        }
+        #st{
+            color:red;
+            font-weight:bold
+        }
+        #nd{
+            color:green;
+            font-weight:bold
+        }
+        #rd {
+            color:blue;
+            font-weight:bold
+        }
+        #rd:hover{
+            cursor: pointer;
+        }
+        .tabela{
+            background:rgba(255,255,255,0.5);
+            margin-top:16px;
+            margin-left:20px
+        }
+        .lista{
+            background:rgba(0,0,0,0.1);
+            padding-top:20px
+
+        }
+        .tabela td, th {
+            padding:20px;
+            font-size:20px;
+            font-style:italic;
+            font-family:'Arial Narrow';
+        }
+        .hidden{
+            display:none;
+        }
+        .dist{
+            color:darkred;
+        }
+        #feedback{
+            text-align:center;
+            color:darkred;
+            font-size:30px;
+        }
+        .skole, .adrese, .stanice{
+            font-family:"Arial";
+            font-size:20px;
+            font-style: italic;
+        }
+        a{
+            text-decoration: none;
+        }
+        a:visited{
+            color:blue;
+        }
+        a:hover{
+            color:darkred;
+        }

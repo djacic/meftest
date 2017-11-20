@@ -8,7 +8,6 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Connection;
 
 class Main extends Controller
 {
@@ -16,7 +15,7 @@ class Main extends Controller
     {
         $groups = DB::table('groups')->get();
         $postcodeByGroup = DB::select(DB::raw(
-            "SELECT p.postcode,p.group_id, p.id FROM groups as g JOIN postcodes as p ON g.id = p.group_id")
+            "SELECT p.postcode,p.group_id, p.id FROM groups as g JOIN postcodes as p ON g.id = p.group_id ORDER BY p.postcode ASC")
         );
         $postcodeGroup1 = DB::select(DB::raw(
             "SELECT p.postcode,p.group_id, p.id FROM groups as g JOIN postcodes as p ON g.id = p.group_id WHERE group_id=1")
@@ -51,7 +50,7 @@ class Main extends Controller
     }
     public function loadData($id){
         $postcodeAddresses = DB::select(DB::raw(
-            "SELECT a.street, a.site_number, a.site_description FROM postcodes p RIGHT JOIN addresses a ON p.id=a.postcode_id WHERE a.postcode_id=$id")
+            "SELECT DISTINCT(a.street), a.site_number, a.site_description FROM postcodes p RIGHT JOIN addresses a ON p.id=a.postcode_id WHERE a.postcode_id=$id")
         );
 
         $singlePostcode = DB::select(DB::raw(

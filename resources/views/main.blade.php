@@ -12,7 +12,7 @@
         $(document).ready(function(){
            $("#distance").prop('checked',false);
            $("#distance").prop('disabled',true);
-            $("#distance").change(function(){
+           $("#distance").change(function(){
                 if ($(this).is(":checked"))
                 {
                     $('.dist').removeClass('hidden');
@@ -30,6 +30,7 @@
                     type: 'GET',
                     dataType: 'JSON',
                     success: function(result){
+                        $("#distance").prop('checked',false);
                         $("#distance").prop('disabled',false);
                         $("#feedback").html("");
                         var data = JSON.parse(JSON.stringify(result));
@@ -39,7 +40,7 @@
                         if(adrese.length>0){
                             $(".adrese").html("");
                             for(var i = 0; i<adrese.length;i++){
-                                $(".adrese").append(adrese[i].street+", "+adrese[i].site_number+", "+adrese[i].site_description);
+                                $(".adrese").append("- "+adrese[i].street+", "+adrese[i].site_number+",<br/>"+adrese[i].site_description+"</br>");
                             }
                         }
                         else{
@@ -63,6 +64,8 @@
                         else{
                             $(".adrese").html("Ne postoje zapisi o stanicama.");
                         }
+                        alert($(this).attr());
+
                     }
                     ,
                     error: function(xhr,status,error){
@@ -74,59 +77,8 @@
     </script>
     <!-- Fonts -->
     <link rel="stylesheet" href="css/switch.css"/>
+    <link rel="stylesheet" href="css/main.css"/>
     <!-- Styles -->
-    <style>
-        html, body {
-            background-image:url("img/bg.jpg");
-            background-color: #fff;
-            color: #636b6f;
-            font-family: 'Arial', sans-serif;
-            font-weight: 100;
-            height: 100vh;
-            margin: 0;
-        }
-        #omot {
-            margin:0 auto;
-            padding:100px
-        }
-        #left{
-            float:left
-        }
-        #right{
-            float:right;
-        }
-        .cleaner{
-            clear:both
-        }
-        ul li {
-            list-style-type:none;
-        }
-        #st{
-            color:red;
-            font-weight:bold
-        }
-        #nd{
-            color:green;
-            font-weight:bold
-        }
-        #rd {
-            color:blue;
-            font-weight:bold
-        }
-        #rd:hover{
-            cursor: pointer
-        }
-        td, th {
-            padding:20px
-        }
-        .hidden{
-            display:none;
-        }
-        #feedback{
-            text-align:center;
-            color:darkred;
-        }
-    </style>
     <script>
     </script>
 </head>
@@ -160,7 +112,7 @@ $group3 = array_unique($group3['postcode']);
 <body>
 <div id="omot">
     <div id="left">
-        <ul>
+        <ul class="lista">
             @foreach($groups as $group)
                 @switch($group->id)
                     @case(1)
@@ -173,7 +125,7 @@ $group3 = array_unique($group3['postcode']);
                                     @foreach($postcodeGroup1 as $grp1)
                                         <li id="rd">
                                             @if(substr($grp1->postcode,0,strpos($grp1->postcode,' ')) == $gr1)
-                                                <a onclick="load({{$grp1->id}})">{{$grp1->postcode}}
+                                                <a href="#tabela" onclick="load({{$grp1->id}})">{{$grp1->postcode}}
                                                 </a>
                                             @endif
                                         </li>
@@ -193,7 +145,7 @@ $group3 = array_unique($group3['postcode']);
                                     @foreach($postcodeGroup2 as $grp2)
                                         <li id="rd">
                                             @if(substr($grp2->postcode,0,strpos($grp2->postcode,' ')) == $gr2)
-                                                <a onclick="load({{$grp2->id}})")">{{$grp2->postcode}}</a>
+                                                <a href="#tabela" onclick="load({{$grp2->id}})")">{{$grp2->postcode}}</a>
                                             @endif
                                         </li>
                                     @endforeach
@@ -211,7 +163,7 @@ $group3 = array_unique($group3['postcode']);
                                     @foreach($postcodeGroup3 as $grp3)
                                         <li id="rd">
                                             @if(substr($grp3->postcode,0,strpos($grp3->postcode,' ')) == $gr3)
-                                                <a onclick="load({{$grp3->id}})">{{$grp3->postcode}}
+                                                <a href="#tabela" onclick="load({{$grp3->id}})">{{$grp3->postcode}}
                                                 </a>
                                             @endif
                                         </li>
@@ -226,17 +178,18 @@ $group3 = array_unique($group3['postcode']);
         </ul>
     </div>
     <div id="right">
-        <table>
+        <a id="tabela"></a>
+        <table class="tabela">
             <thead>
             <tr>
                 <th>
-                    Distance
+                    Distance<br>(0->inf)
                 </th>
                 <th>
                     5 najbližih autobuskih stanica
                 </th>
                 <th>
-                    Škola u prečniku 5km
+                    Škole u prečniku 5km
                 </th>
                 <th>
                     Adrese na tom poštanskom broju
@@ -258,9 +211,14 @@ $group3 = array_unique($group3['postcode']);
                 <td class="adrese">
                 </td>
             </tr>
+            <tr>
+                <td colspan="4">
+                    <div id="feedback">Izaberite poštanski broj u listi sa leve strane</div>
+                </td>
+            </tr>
             </tbody>
         </table>
-        <div id="feedback">Izaberite poštanski broj u DIV-u sa leve strane</div>
+
     </div>
     <div class="cleaner">
     </div>

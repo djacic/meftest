@@ -13,4 +13,3 @@
 
 Route::get('/', 'Main@index');
 Route::get('/load/{id}', 'Main@loadData');
-Route::get('/test/{id}','Main@postcodeSchool');
